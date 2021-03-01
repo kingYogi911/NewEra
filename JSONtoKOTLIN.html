@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Json Object to Kotlin data class</title>
+	<style type="text/css">
+		#JsonInput{
+			padding: 5px;
+			color: red;
+			margin: 10px;
+			height: 300px;
+			width: 300px;
+		}
+		#JsonOutput{
+			padding: 5px;
+			margin: 10px;
+			color: red;
+			height: 300px;
+			width: 300px;
+		}
+		body{
+			float: left;
+		}
+	</style>
+	<script type="text/javascript">
+		function Mytypeof(values){
+			switch(typeof values){
+				case "string"  : return "String";
+				case "number"  : if(Number.isInteger(values)) return "Int";
+				                 else return "Double";
+				default : return "Any";
+			}
+		}
+
+		function jsonTokotlin() {
+
+			var inputArea=document.getElementById('JsonInput');
+			var outputArea=document.getElementById('JsonOutput');
+			var values=[];
+			outputArea.value=null
+			function toKotlinNotation(item,index,arr){
+				res="SerializedName(\""+item+"\")\n"+"var "+item+" : "+Mytypeof(values[index]);
+				if(index!=arr.length-1)
+					res+=",\n";
+				outputArea.value+=res;
+			}
+
+			var x=JSON.parse(inputArea.value);
+
+			var keys=Object.keys(x);
+			values=Object.values(x);
+			//outputArea.value=keys;
+
+
+			keys.forEach(toKotlinNotation);
+
+		}
+	</script>
+</head>
+<body>
+
+<div id="JSON">
+	
+
+	<textarea id="JsonInput" name="JsonInput" form="inputForm"/></textarea>
+
+	<button onclick="jsonTokotlin()">Convert</button>
+
+	<textarea id="JsonOutput" name="JsonOutput"></textarea>
+
+
+
+</div>
+
+<div id=Kotlin>
+</div>
+
+</body>
+</html>
